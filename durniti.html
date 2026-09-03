@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>দুর্নীতি.com — নির্ভয়ে বলুন</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;600;700&family=Noto+Sans+Bengali:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#101A26;
+    --ink-2:#182536;
+    --paper:#F5F1E7;
+    --paper-2:#EAE4D4;
+    --rust:#B3402F;
+    --rust-dark:#7C2B1F;
+    --teal:#2C6459;
+    --teal-light:#DCEAE6;
+    --gold:#C79A2E;
+    --text-dark:#1B1811;
+    --text-dim:#5B5648;
+    --text-light:#EDE8DA;
+    --text-light-dim:#A9A390;
+    --border:#D7CFB8;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--text-dark);
+    font-family:'Noto Sans Bengali','Noto Sans',sans-serif;
+    line-height:1.6;
+  }
+  h1,h2,h3,.serif{
+    font-family:'Noto Serif Bengali','Noto Serif',serif;
+    font-weight:700;
+    margin:0;
+  }
+  a{color:inherit;}
+  .wrap{max-width:760px;margin:0 auto;padding:0 20px;}
+
+  header.top{
+    background:var(--ink);
+    color:var(--text-light);
+    padding:18px 0;
+    border-bottom:3px solid var(--rust);
+  }
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-family:'Noto Serif Bengali',serif;font-weight:700;font-size:22px;letter-spacing:.5px;}
+  .brand span{color:var(--rust);}
+  .top-note{font-size:12px;color:var(--text-light-dim);}
+
+  .hero{
+    background:var(--ink);
+    color:var(--text-light);
+    padding:56px 0 64px;
+  }
+  .hero h1{
+    font-size:34px;
+    line-height:1.35;
+    color:var(--text-light);
+    max-width:600px;
+  }
+  .hero p.lead{
+    font-size:16px;
+    color:var(--text-light-dim);
+    max-width:520px;
+    margin-top:16px;
+  }
+  .hero-actions{margin-top:28px;display:flex;gap:12px;flex-wrap:wrap;}
+  .btn{
+    display:inline-block;
+    padding:13px 22px;
+    border-radius:3px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    border:1.5px solid transparent;
+    font-family:'Noto Sans Bengali',sans-serif;
+  }
+  .btn-primary{background:var(--rust);color:#fff;}
+  .btn-primary:hover{background:var(--rust-dark);}
+  .btn-ghost{background:transparent;color:var(--text-light);border-color:#3A4658;}
+  .btn-ghost:hover{border-color:var(--text-light-dim);}
+
+  .stats{
+    display:flex;
+    gap:0;
+    margin-top:36px;
+    border-top:1px solid #2A3646;
+    padding-top:20px;
+  }
+  .stat{flex:1;}
+  .stat .num{font-family:'Noto Serif Bengali',serif;font-size:26px;font-weight:700;color:var(--gold);}
+  .stat .lbl{font-size:12.5px;color:var(--text-light-dim);margin-top:2px;}
+
+  section{padding:44px 0;}
+  section.categories{border-bottom:1px solid var(--border);}
+  .sec-head{margin-bottom:22px;}
+  .sec-head h2{font-size:20px;color:var(--text-dark);}
+  .sec-head p{font-size:13.5px;color:var(--text-dim);margin-top:4px;}
+
+  .cat-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:10px;
+  }
+  .cat-btn{
+    text-align:left;
+    background:#fff;
+    border:1px solid var(--border);
+    padding:14px 16px;
+    border-radius:3px;
+    cursor:pointer;
+    font-family:'Noto Sans Bengali',sans-serif;
+    font-size:14.5px;
+    color:var(--text-dark);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+  }
+  .cat-btn .count{font-size:12px;color:var(--text-dim);}
+  .cat-btn.active{border-color:var(--rust);background:#FBEFEC;}
+  .cat-btn:hover{border-color:#B9AF8E;}
+
+  .feed .sec-head{display:flex;align-items:baseline;justify-content:space-between;}
+  .clear-filter{font-size:12.5px;color:var(--rust);cursor:pointer;display:none;}
+  .clear-filter.show{display:inline;}
+
+  .complaint{
+    border-bottom:1px solid var(--border);
+    padding:18px 0;
+    display:flex;
+    gap:14px;
+  }
+  .complaint:first-child{padding-top:0;}
+  .tag-bar{width:4px;border-radius:2px;flex-shrink:0;}
+  .c-body{flex:1;min-width:0;}
+  .c-meta{font-size:12px;color:var(--text-dim);margin-bottom:6px;display:flex;gap:10px;flex-wrap:wrap;}
+  .c-meta .cat-label{font-weight:600;}
+  .c-text{font-size:15px;color:var(--text-dark);white-space:pre-wrap;word-break:break-word;}
+  .empty{color:var(--text-dim);font-size:14px;padding:20px 0;}
+
+  footer{
+    background:var(--ink);
+    color:var(--text-light-dim);
+    padding:28px 0;
+    font-size:12.5px;
+    text-align:center;
+  }
+  footer .wrap p{margin:4px 0;}
+
+  .fab{
+    position:fixed;
+    bottom:22px;
+    right:22px;
+    background:var(--rust);
+    color:#fff;
+    border:none;
+    padding:14px 20px;
+    border-radius:30px;
+    font-size:15px;
+    font-weight:600;
+    cursor:pointer;
+    box-shadow:0 4px 14px rgba(0,0,0,.25);
+    font-family:'Noto Sans Bengali',sans-serif;
+    z-index:50;
+  }
+
+  .overlay{
+    display:none;
+    position:fixed;inset:0;
+    background:rgba(16,26,38,.72);
+    z-index:100;
+    align-items:flex-start;
+    justify-content:center;
+    overflow-y:auto;
+    padding:40px 16px;
+  }
+  .overlay.open{display:flex;}
+  .modal{
+    background:var(--paper);
+    max-width:520px;
+    width:100%;
+    border-radius:4px;
+    padding:26px 24px 24px;
+    border-top:4px solid var(--rust);
+  }
+  .modal h3{font-size:19px;margin-bottom:6px;}
+  .modal .sub{font-size:13px;color:var(--text-dim);margin-bottom:20px;}
+  .field{margin-bottom:14px;}
+  .field label{display:block;font-size:13px;font-weight:600;margin-bottom:6px;color:var(--text-dark);}
+  select,textarea,input[type=text]{
+    width:100%;
+    border:1px solid var(--border);
+    border-radius:3px;
+    padding:10px 12px;
+    font-size:14.5px;
+    font-family:'Noto Sans Bengali',sans-serif;
+    background:#fff;
+    color:var(--text-dark);
+  }
+  textarea{min-height:120px;resize:vertical;}
+  .privacy-box{
+    background:var(--teal-light);
+    border:1px solid #B9D6CD;
+    border-radius:3px;
+    padding:10px 12px;
+    font-size:12.5px;
+    color:var(--teal);
+    margin-bottom:16px;
+  }
+  .modal-actions{display:flex;gap:10px;margin-top:18px;}
+  .err{color:var(--rust-dark);font-size:12.5px;margin-top:4px;display:none;}
+  .toast{
+    display:none;
+    background:var(--teal);
+    color:#fff;
+    padding:12px 16px;
+    border-radius:3px;
+    font-size:14px;
+    margin-top:14px;
+    text-align:center;
+  }
+  @media (max-width:480px){
+    .hero h1{font-size:27px;}
+    .stats{flex-wrap:wrap;gap:16px;}
+    .stat{flex:1 1 40%;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">দুর্নীতি<span>.com</span></div>
+    <div class="top-note">সম্পূর্ণ পরিচয়হীন প্ল্যাটফর্ম</div>
+  </div>
+</header>
+
+<div class="hero">
+  <div class="wrap">
+    <h1>যা দেখেছেন, তা বলুন। নাম লাগবে না, ভয়ও না।</h1>
+    <p class="lead">ঘুষ, চাঁদাবাজি, টাকা পাচার, মাদক ব্যবসা বা ইভটিজিং — যা কিছু আপনি প্রত্যক্ষ করেছেন, তা এখানে সম্পূর্ণ পরিচয় গোপন রেখে জানাতে পারেন। কোনো নাম, ইমেইল বা ফোন নম্বর সংগ্রহ করা হয় না।</p>
+    <div class="hero-actions">
+      <button class="btn btn-primary" onclick="openModal()">অভিযোগ করুন</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('feed-section').scrollIntoView({behavior:'smooth'})">অভিযোগগুলো দেখুন</button>
+    </div>
+    <div class="stats">
+      <div class="stat"><div class="num" id="stat-total">0</div><div class="lbl">মোট অভিযোগ</div></div>
+      <div class="stat"><div class="num" id="stat-cats">৬</div><div class="lbl">ক্যাটাগরি</div></div>
+      <div class="stat"><div class="num">০</div><div class="lbl">সংগৃহীত পরিচয়</div></div>
+    </div>
+  </div>
+</div>
+
+<section class="categories">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2>বিষয় অনুযায়ী দেখুন</h2>
+      <p>একটি ক্যাটাগরিতে ক্লিক করলে শুধু সেই ধরনের অভিযোগ দেখা যাবে</p>
+    </div>
+    <div class="cat-grid" id="cat-grid"></div>
+  </div>
+</section>
+
+<section class="feed" id="feed-section">
+  <div class="wrap">
+    <div class="sec-head">
+      <h2 style="display:inline">সাম্প্রতিক অভিযোগ</h2>
+      <span class="clear-filter" id="clear-filter" onclick="setFilter(null)">ফিল্টার তুলে দিন ✕</span>
+    </div>
+    <div id="feed-list"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>এটি একটি প্রোটোটাইপ। প্রকৃত ওয়েবসাইটে নিরাপদ হোস্টিং, মডারেশন ও গোপনীয়তা-সুরক্ষা অবকাঠামো প্রয়োজন হবে।</p>
+    <p>© দুর্নীতি.com</p>
+  </div>
+</footer>
+
+<button class="fab" onclick="openModal()">+ অভিযোগ করুন</button>
+
+<div class="overlay" id="overlay" onclick="if(event.target===this)closeModal()">
+  <div class="modal">
+    <h3>নিরাপদে অভিযোগ করুন</h3>
+    <p class="sub">আপনার পরিচয় সংক্রান্ত কোনো তথ্য এখানে নেওয়া হয় না।</p>
+    <div class="privacy-box">আপনার নাম, ইমেইল বা ফোন নম্বর জিজ্ঞাসা করা হবে না। যা লিখবেন তা সবাই পড়তে পারবে — তাই সঠিক ও যাচাইযোগ্য তথ্য দিন, ব্যক্তিগত আক্রমণ এড়িয়ে চলুন।</p>
+
+    <div class="field">
+      <label>বিষয় নির্বাচন করুন</label>
+      <select id="f-cat">
+        <option value="ঘুষ">ঘুষ</option>
+        <option value="চাঁদাবাজি">চাঁদাবাজি</option>
+        <option value="টাকা পাচার">টাকা পাচার</option>
+        <option value="মাদক">মাদক</option>
+        <option value="ইভটিজিং">ইভটিজিং</option>
+        <option value="অন্যান্য">অন্যান্য</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label>স্থান / প্রতিষ্ঠান (ঐচ্ছিক)</label>
+      <input type="text" id="f-loc" placeholder="যেমন: নির্দিষ্ট এলাকা বা দপ্তরের নাম">
+    </div>
+
+    <div class="field">
+      <label>বিস্তারিত বিবরণ</label>
+      <textarea id="f-desc" placeholder="ঘটনাটি কী, কখন এবং কীভাবে ঘটেছে — বিস্তারিত লিখুন"></textarea>
+      <div class="err" id="f-err">বিবরণ লিখুন, অন্তত কয়েকটি বাক্যে</div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="btn btn-primary" onclick="submitComplaint()" style="flex:1">নিরাপদে জমা দিন</button>
+      <button class="btn btn-ghost" onclick="closeModal()">বাতিল</button>
+    </div>
+    <div class="toast" id="toast">অভিযোগ প্রকাশিত হয়েছে — ধন্যবাদ।</div>
+  </div>
+</div>
+
+<script>
+const CATS = ["ঘুষ","চাঁদাবাজি","টাকা পাচার","মাদক","ইভটিজিং","অন্যান্য"];
+const CAT_COLOR = {
+  "ঘুষ":"#B3402F","চাঁদাবাজি":"#C79A2E","টাকা পাচার":"#2C6459",
+  "মাদক":"#6B3FA0","ইভটিজিং":"#A8365E","অন্যান্য":"#5B5648"
+};
+let activeFilter = null;
+let complaints = [];
+
+function timeAgo(ts){
+  const diff = Math.floor((Date.now()-ts)/1000);
+  if(diff<60) return "এইমাত্র";
+  if(diff<3600) return Math.floor(diff/60)+" মিনিট আগে";
+  if(diff<86400) return Math.floor(diff/3600)+" ঘণ্টা আগে";
+  return Math.floor(diff/86400)+" দিন আগে";
+}
+
+function renderCats(){
+  const grid = document.getElementById('cat-grid');
+  grid.innerHTML = "";
+  CATS.forEach(cat=>{
+    const count = complaints.filter(c=>c.cat===cat).length;
+    const btn = document.createElement('button');
+    btn.className = 'cat-btn' + (activeFilter===cat ? ' active':'');
+    btn.innerHTML = `<span>${cat}</span><span class="count">${count}</span>`;
+    btn.onclick = ()=>setFilter(cat);
+    grid.appendChild(btn);
+  });
+}
+
+function setFilter(cat){
+  activeFilter = cat;
+  document.getElementById('clear-filter').classList.toggle('show', !!cat);
+  renderCats();
+  renderFeed();
+}
+
+function renderFeed(){
+  const list = document.getElementById('feed-list');
+  const items = complaints
+    .filter(c => !activeFilter || c.cat === activeFilter)
+    .sort((a,b)=>b.ts-a.ts);
+  document.getElementById('stat-total').textContent = complaints.length;
+  if(items.length===0){
+    list.innerHTML = '<div class="empty">এখনও কোনো অভিযোগ নেই। প্রথম অভিযোগটি আপনি করতে পারেন।</div>';
+    return;
+  }
+  list.innerHTML = items.map(c=>`
+    <div class="complaint">
+      <div class="tag-bar" style="background:${CAT_COLOR[c.cat]||'#888'}"></div>
+      <div class="c-body">
+        <div class="c-meta">
+          <span class="cat-label" style="color:${CAT_COLOR[c.cat]||'#888'}">${c.cat}</span>
+          ${c.loc ? `<span>${c.loc}</span>` : ''}
+          <span>${timeAgo(c.ts)}</span>
+        </div>
+        <div class="c-text">${c.desc.replace(/</g,"&lt;")}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function openModal(){ document.getElementById('overlay').classList.add('open'); }
+function closeModal(){
+  document.getElementById('overlay').classList.remove('open');
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-loc').value = '';
+  document.getElementById('f-err').style.display = 'none';
+  document.getElementById('toast').style.display = 'none';
+}
+
+async function submitComplaint(){
+  const cat = document.getElementById('f-cat').value;
+  const loc = document.getElementById('f-loc').value.trim();
+  const desc = document.getElementById('f-desc').value.trim();
+  const err = document.getElementById('f-err');
+
+  if(desc.length < 8){
+    err.style.display = 'block';
+    return;
+  }
+  err.style.display = 'none';
+
+  const entry = { id: 'c_'+Date.now()+'_'+Math.floor(Math.random()*1000), cat, loc, desc, ts: Date.now() };
+  complaints.push(entry);
+
+  try{
+    await window.storage.set('complaints', JSON.stringify(complaints), true);
+  }catch(e){
+    console.error('storage error', e);
+  }
+
+  renderCats();
+  renderFeed();
+  document.getElementById('toast').style.display = 'block';
+  setTimeout(closeModal, 1400);
+}
+
+async function loadComplaints(){
+  try{
+    const res = await window.storage.get('complaints', true);
+    complaints = res ? JSON.parse(res.value) : [];
+  }catch(e){
+    complaints = [];
+  }
+  renderCats();
+  renderFeed();
+}
+
+document.getElementById('stat-cats').textContent = CATS.length;
+loadComplaints();
+</script>
+
+</body>
+</html>
